@@ -1,0 +1,21 @@
+/* Chop etish / PDF: A4 landscape */
+#print-root { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html, body { background: #fff !important; color: #000 !important; font-size: 10.5px; }
+  body > *:not(#print-root) { display: none !important; }
+  #print-root { display: block !important; }
+  .pr-page { page-break-after: always; break-after: page; }
+  .pr-page:last-child { page-break-after: auto; break-after: auto; }
+  .pr-head { display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #000; padding-bottom: 4px; margin-bottom: 6px; }
+  .pr-head img { height: 32px; }
+  .pr-head h1 { font-size: 15px; margin: 0; }
+  .pr-head .meta { margin-left: auto; text-align: right; font-size: 9.5px; }
+  table.pr { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  table.pr th, table.pr td { border: 1px solid #555; padding: 3px 4px; vertical-align: top; }
+  table.pr th { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 10px; }
+  table.pr td.tm { width: 62px; font-weight: 700; font-size: 9.5px; }
+  .pr-l { border-left: 3px solid #000; padding-left: 4px; margin-bottom: 3px; font-size: 9.5px; line-height: 1.25; }
+  .pr-l b { font-size: 10px; }
+  .pr-foot { margin-top: 4px; font-size: 9px; color: #333; }
+}

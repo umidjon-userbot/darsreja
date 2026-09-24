@@ -1,0 +1,85 @@
+/* Dars jadvali grid */
+.sgrid-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.sgrid { display: grid; min-width: 880px; }
+.sgrid .hd { position: sticky; top: 0; background: var(--surface-2); font-weight: 650; font-size: 12.5px; padding: 8px; text-align: center; border-bottom: 1px solid var(--border); z-index: 2; }
+.sgrid .hd small { display: block; font-weight: 500; }
+.sgrid .hd.today { color: var(--primary); }
+.sgrid .tm { background: var(--surface-2); border-right: 1px solid var(--border); padding: 8px; font-size: 12px; color: var(--text-2); display: flex; flex-direction: column; justify-content: center; }
+.sgrid .tm b { color: var(--text); font-size: 12.5px; }
+.sgrid .tm.brk { border-bottom: 3px double var(--border-strong); }
+.sgrid .cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 4px; min-height: 92px; display: flex; flex-direction: column; gap: 4px; position: relative; transition: background .1s; }
+.sgrid .cell.brk { border-bottom: 3px double var(--border-strong); }
+.sgrid .cell.off { background: repeating-linear-gradient(135deg, transparent 0 6px, var(--surface-2) 6px 12px); }
+.sgrid .cell .add { opacity: 0; position: absolute; right: 4px; bottom: 4px; }
+.sgrid .cell:hover .add, .sgrid .cell:focus-within .add { opacity: 1; }
+.sgrid .cell.drop-ok { background: var(--success-soft); outline: 2px dashed var(--success); outline-offset: -3px; }
+.sgrid .cell.drop-soft { background: var(--warning-soft); outline: 2px dashed var(--warning); outline-offset: -3px; }
+.sgrid .cell.drop-bad { background: var(--danger-soft); outline: 2px dashed var(--danger); outline-offset: -3px; }
+.sgrid .cell .drop-ico { position: absolute; top: 3px; right: 5px; font-size: 13px; pointer-events: none; }
+.sgrid .cell.hl { box-shadow: inset 0 0 0 3px var(--primary); animation: pulse 1.2s 2; }
+@keyframes pulse { 50% { box-shadow: inset 0 0 0 3px transparent; } }
+.sgrid .cell.pick-target { cursor: crosshair; }
+
+.lcard {
+  position: relative; border-radius: 8px; padding: 6px 8px 6px 11px; background: var(--surface); border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm); font-size: 12px; line-height: 1.35; cursor: grab; user-select: none; touch-action: none;
+}
+.lcard::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 8px 0 0 8px; background: var(--c, var(--primary)); }
+.lcard .s { font-weight: 650; font-size: 12.5px; color: var(--text); display: flex; gap: 4px; align-items: flex-start; }
+.lcard .s .flags { margin-left: auto; display: flex; gap: 3px; flex: none; }
+.lcard .m { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lcard.locked { cursor: default; background: var(--surface-2); }
+.lcard.conflict { border-color: var(--danger); background: var(--danger-soft); }
+.lcard.subst { border-style: dashed; border-color: var(--info); }
+.lcard.cancelled { opacity: .55; text-decoration: line-through; }
+.lcard.dim { opacity: .45; }
+.lcard.dragging { opacity: .35; }
+.lcard.selected { box-shadow: 0 0 0 2px var(--primary); }
+.lcard .par { font-size: 10px; font-weight: 700; padding: 0 4px; border-radius: 4px; background: var(--info-soft); color: var(--info); }
+.lcard.span2 { flex: 1; }
+.lcard .menu-btn2 { position: absolute; right: 2px; bottom: 2px; opacity: 0; }
+.lcard:hover .menu-btn2, .lcard:focus-within .menu-btn2 { opacity: 1; }
+.drag-ghost { position: fixed; z-index: 300; pointer-events: none; width: 170px; transform: rotate(-2deg); box-shadow: var(--shadow-lg); opacity: .95; }
+
+.cell-span { grid-row: span 2; }
+
+/* Mobil: kunma-kun */
+.day-tabs { display: none; }
+@media (max-width: 760px) {
+  .day-tabs { display: flex; }
+  .sgrid.mobile-day { min-width: 0; }
+}
+
+/* Availability matritsasi */
+.avm { overflow-x: auto; }
+.avm table { border-collapse: separate; border-spacing: 3px; }
+.avm th { font-size: 11.5px; font-weight: 600; color: var(--text-3); padding: 2px 4px; white-space: nowrap; }
+.avm td.day { font-weight: 600; font-size: 13px; padding-right: 8px; white-space: nowrap; }
+.avm .c { width: 54px; height: 32px; border-radius: 6px; border: 1px solid var(--border-strong); background: var(--surface-2); cursor: pointer; display: grid; place-items: center; font-size: 12px; color: var(--text-3); padding: 0; }
+.avm .c.on { background: var(--success-soft); border-color: var(--success); color: var(--success); }
+.avm .c.pref { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+.avm-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.avm-status { margin-top: 8px; font-size: 13px; }
+
+/* Heatmap */
+.heat { border-collapse: separate; border-spacing: 3px; }
+.heat td { width: 70px; height: 44px; text-align: center; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.heat th { font-size: 12px; color: var(--text-3); font-weight: 600; padding: 2px 6px; }
+
+.bar-list .item { display: grid; grid-template-columns: minmax(120px, 220px) 1fr auto; gap: 10px; align-items: center; padding: 6px 0; }
+.bar-list .item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 550; }
+.bar-list .item .vv { font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text-2); white-space: nowrap; }
+
+.wizard-steps { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.wizard-steps span { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--surface-2); color: var(--text-3); }
+.wizard-steps span.cur { background: var(--primary); color: var(--primary-text); }
+.wizard-steps span.done { background: var(--success-soft); color: var(--success); }
+.cand { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.cand + .cand { margin-top: 8px; }
+.cand:hover { border-color: var(--border-strong); }
+.cand.sel { border-color: var(--primary); background: var(--primary-soft); }
+.cand .grow { flex: 1; min-width: 0; }
+.stage-list li { display: flex; gap: 8px; align-items: center; padding: 4px 0; color: var(--text-3); }
+.stage-list li.done { color: var(--success); }
+.stage-list li.cur { color: var(--text); font-weight: 600; }
+.lcard.evcard { background: var(--warning-soft); border-style: dashed; cursor: default; }
