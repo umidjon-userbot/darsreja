@@ -1,5 +1,5 @@
 // Service worker: to‘liq offline ishlash. Sahifa — tarmoq birinchi (yangilanish uchun), aktivlar — kesh birinchi.
-const CACHE = 'ssb-v10';
+const CACHE = 'ssb-v11';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', (e) => {
@@ -13,6 +13,7 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
+  if (/cloud\.json$|\/backend\//.test(new URL(req.url).pathname)) return; // bulut sozlamasi — har doim tarmoqdan
   if (req.mode === 'navigate') {
     e.respondWith(fetch(req).then((res) => {
       const copy = res.clone();
