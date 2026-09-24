@@ -1,5 +1,5 @@
 // Service worker: to‘liq offline ishlash. Sahifa — tarmoq birinchi (yangilanish uchun), aktivlar — kesh birinchi.
-const CACHE = 'ssb-v2';
+const CACHE = 'ssb-v4';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', (e) => {
